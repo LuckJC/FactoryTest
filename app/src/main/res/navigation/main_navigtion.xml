@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_contentFragment_to_networkFragment"
             app:destination="@id/networkFragment" />
+        <action
+            android:id="@+id/action_contentFragment_to_smsFragment"
+            app:destination="@id/smsFragment" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
@@ -27,4 +30,9 @@
         android:name="com.fibocom.factorytest.NetworkFragment"
         android:label="fragment_network"
         tools:layout="@layout/fragment_network" />
+    <fragment
+        android:id="@+id/smsFragment"
+        android:name="com.fibocom.factorytest.SmsFragment"
+        android:label="fragment_sms_list"
+        tools:layout="@layout/fragment_sms_list" />
 </navigation>
