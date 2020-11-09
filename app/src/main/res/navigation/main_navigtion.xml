@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigtion"
+    app:startDestination="@id/contentFragment">
+
+    <fragment
+        android:id="@+id/contentFragment"
+        android:name="com.fibocom.factorytest.ContentFragment"
+        android:label="fragment_content_list"
+        tools:layout="@layout/fragment_content_list">
+        <action
+            android:id="@+id/action_contentFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+        <action
+            android:id="@+id/action_contentFragment_to_networkFragment"
+            app:destination="@id/networkFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.fibocom.factorytest.InfoFragment"
+        android:label="fragment_info_list"
+        tools:layout="@layout/fragment_info_list" />
+    <fragment
+        android:id="@+id/networkFragment"
+        android:name="com.fibocom.factorytest.NetworkFragment"
+        android:label="fragment_network"
+        tools:layout="@layout/fragment_network" />
+</navigation>
