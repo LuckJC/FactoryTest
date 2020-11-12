@@ -1,20 +1,56 @@
 <resources>
     <string name="app_name">FactoryTest</string>
     <!-- About phone, status item title.  The phone MSID number of the current device.-->
-    <string name="status_msid_number">MSID</string>
+    <string name="status_msid_number" translatable="false">MSID</string>
     <!-- About phone screen, title for MEID for multi-sim devices -->
-    <string name="meid_multi_sim">MEID (sim slot %1$d)</string>
+    <string name="meid_multi_sim" translatable="false">MEID (sim slot %1$d)</string>
     <!-- About phone, status item title.  The phone MEID number of the current LTE/CDMA device. [CHAR LIMIT=30] -->
-    <string name="status_meid_number">MEID</string>
+    <string name="status_meid_number" translatable="false">MEID</string>
     <!-- About phone, status item title.  The ICCID of the current LTE device. [CHAR LIMIT=30] -->
-    <string name="status_icc_id">ICCID</string>
+    <string name="status_icc_id" translatable="false">ICCID</string>
     <!-- About phone screen, title for IMEI for multi-sim devices -->
-    <string name="imei_multi_sim">IMEI (sim slot %1$d)</string>
+    <string name="imei_multi_sim" translatable="false">IMEI (sim slot %1$d)</string>
     <!-- Do not translate. About phone, status item title -->
-    <string name="status_imei">IMEI</string>
+    <string name="status_imei" translatable="false">IMEI</string>
     <!-- Do not translate. About phone, status item title -->
-    <string name="status_imei_sv">IMEI SV</string>
-    <string name="status_imsi_id">IMSI</string>
+    <string name="status_imei_sv" translatable="false">IMEI SV</string>
+    <string name="status_imsi_id" translatable="false">IMSI</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="notifyTitle">Notice</string>
+    <string name="notifyMsg">The current application lacks the necessary permissions.Please click \"Settings \"-\" Permissions \"- to open the required permissions.</string>
+    <string name="cancel">Cancel</string>
+    <string name="setting">Setting</string>
+
+    <string name="title_time">Time:</string>
+    <string name="time" translatable="false"></string>
+    <string name="title_lat">Latitude:</string>
+    <string name="latitude" translatable="false"></string>
+    <string name="title_lon">Longitude:</string>
+    <string name="longitude" translatable="false"></string>
+    <string name="title_alt">Altitude:</string>
+    <string name="altitude" translatable="false"></string>
+    <string name="title_acc">Accuracy:</string>
+    <string name="accuracy" translatable="false"></string>
+    <string name="title_speed">Speed:</string>
+    <string name="speed" translatable="false"></string>
+    <string name="title_provider">Provider:</string>
+    <string name="provider" translatable="false"></string>
+    <string name="title_status">Status:</string>
+    <string name="status" translatable="false"></string>
+    <string name="title_date">Date:</string>
+    <string name="date" translatable="false"></string>
+
+    <string name="provider_status_enabled">%1$s enabled</string>
+    <string name="provider_status_disabled">%1$s disabled</string>
+    <string name="gps_status_started" translatable="false">STARTED</string>
+    <string name="gps_status_stopped" translatable="false">STOPPED</string>
+    <string name="gps_status_first_fix" translatable="false">FIRST_FIX</string>
+    <string name="gps_status_unavailable" translatable="false">UNAVAILABLE</string>
+    <string name="gps_status_available" translatable="false">AVAILABLE</string>
+    <string name="gps_status_unknown" translatable="false">UNKNOWN</string>
+    <string name="title_signal">Signal</string>
+    <string name="title_sms">SMS</string>
+    <string name="title_gps" translatable="false">GPS</string>
+    <string name="title_info">Infomation</string>
+
 </resources>

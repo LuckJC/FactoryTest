@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/contentFragment"
         android:name="com.fibocom.factorytest.ContentFragment"
-        android:label="fragment_content_list"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_content_list">
         <action
             android:id="@+id/action_contentFragment_to_infoFragment"
@@ -19,20 +19,28 @@
         <action
             android:id="@+id/action_contentFragment_to_smsFragment"
             app:destination="@id/smsFragment" />
+        <action
+            android:id="@+id/action_contentFragment_to_gpsFragment"
+            app:destination="@id/gpsFragment" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.fibocom.factorytest.InfoFragment"
-        android:label="fragment_info_list"
+        android:label="@string/title_info"
         tools:layout="@layout/fragment_info_list" />
     <fragment
         android:id="@+id/networkFragment"
         android:name="com.fibocom.factorytest.NetworkFragment"
-        android:label="fragment_network"
+        android:label="@string/title_signal"
         tools:layout="@layout/fragment_network" />
     <fragment
         android:id="@+id/smsFragment"
         android:name="com.fibocom.factorytest.SmsFragment"
-        android:label="fragment_sms_list"
+        android:label="@string/title_sms"
         tools:layout="@layout/fragment_sms_list" />
+    <fragment
+        android:id="@+id/gpsFragment"
+        android:name="com.fibocom.factorytest.GpsFragment"
+        android:label="@string/title_gps"
+        tools:layout="@layout/fragment_gps" />
 </navigation>

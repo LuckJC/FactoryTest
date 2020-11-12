@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">硬件测试</string>
+    <string name="notifyTitle">提示</string>
+    <string name="notifyMsg">当前应用缺少必要权限。  请点击\"设置\"-\"权限\"-打开所需权限。</string>
+    <string name="setting">设置</string>
+    <string name="cancel">取消</string>
+    <string name="title_time">时间:</string>
+    <string name="title_lat">纬度:</string>
+    <string name="title_lon">经度:</string>
+    <string name="title_alt">海拔:</string>
+    <string name="title_acc">精度:</string>
+    <string name="title_speed">速度:</string>
+    <string name="title_status">状态:</string>
+    <string name="title_provider">开关:</string>
+    <string name="title_date">日期:</string>
+    <string name="provider_status_enabled">%1$s 开</string>
+    <string name="provider_status_disabled">%1$s 关</string>
+    <string name="title_signal">移动信号</string>
+    <string name="title_info">状态信息</string>
+    <string name="title_sms">短信</string>
+</resources>

@@ -48,9 +48,10 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 } else if (idView.getText().equals("3")) {
                     Navigation.findNavController(idView)
                             .navigate(R.id.action_contentFragment_to_smsFragment);
+                } else if (idView.getText().equals("4")) {
+                    Navigation.findNavController(idView)
+                            .navigate(R.id.action_contentFragment_to_gpsFragment);
                 }
-            } else {
-                ;
             }
         });
         return new ViewHolder(view);

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".GpsFragment">
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:stretchColumns="1">
+
+        <TableRow>
+
+            <TextView
+                style="@style/style_table_left"
+                android:text="@string/title_provider" />
+
+            <TextView
+                android:id="@+id/tv_provider"
+                style="@style/style_table_right"
+                android:text="@string/provider" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="@color/light_gray" />
+
+        <TableRow>
+
+            <TextView
+                style="@style/style_table_left"
+                android:text="@string/title_status" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                style="@style/style_table_right"
+                android:text="@string/status" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="@color/light_gray" />
+
+        <TableRow>
+
+            <TextView
+                style="@style/style_table_left"
+                android:text="@string/title_date" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/style_table_right"
+                android:text="@string/date" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="@color/light_gray" />
+
+        <TableRow>
+
+            <TextView
+                style="@style/style_table_left"
+                android:text="@string/title_time" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/style_table_right"
+                android:text="@string/time" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="@color/light_gray" />
+
+        <TableRow>
+
+            <TextView
+                style="@style/style_table_left"
+                android:text="@string/title_alt" />
+
+            <TextView
+                android:id="@+id/tv_altitude"
+                style="@style/style_table_right"
+                android:text="@string/altitude" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="@color/light_gray" />
+
+        <TableRow>
+
+            <TextView
+                style="@style/style_table_left"
+                android:text="@string/title_lat" />
+
+            <TextView
+                android:id="@+id/tv_latitude"
+                style="@style/style_table_right"
+                android:text="@string/latitude" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="@color/light_gray" />
+
+        <TableRow>
+
+            <TextView
+                style="@style/style_table_left"
+                android:text="@string/title_lon" />
+
+            <TextView
+                android:id="@+id/tv_longitude"
+                style="@style/style_table_right"
+                android:text="@string/longitude" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="@color/light_gray" />
+
+        <TableRow>
+
+            <TextView
+                style="@style/style_table_left"
+                android:text="@string/title_acc" />
+
+            <TextView
+                android:id="@+id/tv_accuracy"
+                style="@style/style_table_right"
+                android:text="@string/accuracy" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="@color/light_gray" />
+
+        <TableRow>
+
+            <TextView
+                style="@style/style_table_left"
+                android:text="@string/title_speed" />
+
+            <TextView
+                android:id="@+id/tv_speed"
+                style="@style/style_table_right"
+                android:text="@string/speed" />
+        </TableRow>
+
+        <View
+            android:layout_height="1dip"
+            android:background="@color/light_gray" />
+
+    </TableLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.fibocom.factorytest.SatelSignalChartView
+                android:id="@+id/signal_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</LinearLayout>
