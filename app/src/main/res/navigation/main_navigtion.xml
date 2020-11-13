@@ -26,12 +26,12 @@
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.fibocom.factorytest.InfoFragment"
-        android:label="@string/title_info"
+        android:label="@string/title_device_info"
         tools:layout="@layout/fragment_info_list" />
     <fragment
         android:id="@+id/networkFragment"
         android:name="com.fibocom.factorytest.NetworkFragment"
-        android:label="@string/title_signal"
+        android:label="@string/title_mobile_network"
         tools:layout="@layout/fragment_network_list" />
     <fragment
         android:id="@+id/smsFragment"

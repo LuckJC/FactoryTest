@@ -77,6 +77,24 @@ public class NetworkFragment extends Fragment {
             for (SubscriptionInfo subInfo : list) {
                 TelephonyManager telephonyManager = mTelephonyManager.createForSubscriptionId(subInfo.getSubscriptionId());
                 //subInfo.getSubscriptionId();
+
+                MainContent.addMainItem(MainContent.createMainItem(
+                        telephonyManager.getNetworkOperatorName(),
+                        ""));
+
+                if (isSubscriptionInService(subInfo.getSubscriptionId())) {
+                    MyPhoneStateListener listener = new MyPhoneStateListener(MainContent.ITEMS.size() - 1);
+                    myPhoneStateListener.add(listener);
+                    myPhoneStateListenerTelephonyManagerMap.put(listener, telephonyManager);
+                    MainContent.addMainItem(MainContent.createMainItem(
+                            getString(R.string.network_registered),
+                            getString(R.string.yes)));
+                } else {
+                    MainContent.addMainItem(MainContent.createMainItem(
+                            getString(R.string.network_registered),
+                            getString(R.string.no)));
+                }
+
                 MainContent.addMainItem(MainContent.createMainItem(
                         getString(R.string.status_imsi_id),
                         telephonyManager.getSubscriberId()));
@@ -84,23 +102,6 @@ public class NetworkFragment extends Fragment {
                 MainContent.addMainItem(MainContent.createMainItem(
                         getString(R.string.status_icc_id),
                         telephonyManager.getSimSerialNumber()));
-
-                MainContent.addMainItem(MainContent.createMainItem(
-                        telephonyManager.getNetworkOperatorName(),
-                        ""));
-
-                if (isSubscriptionInService(subInfo.getSubscriptionId())) {
-                    MainContent.addMainItem(MainContent.createMainItem(
-                            getString(R.string.network_registered),
-                            getString(R.string.yes)));
-                    MyPhoneStateListener listener = new MyPhoneStateListener(MainContent.ITEMS.size() - 1);
-                    myPhoneStateListener.add(listener);
-                    myPhoneStateListenerTelephonyManagerMap.put(listener, telephonyManager);
-                } else {
-                    MainContent.addMainItem(MainContent.createMainItem(
-                            getString(R.string.network_registered),
-                            getString(R.string.no)));
-                }
             }
         }
     }
