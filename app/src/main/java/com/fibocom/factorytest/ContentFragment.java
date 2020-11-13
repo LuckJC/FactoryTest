@@ -34,6 +34,16 @@ public class ContentFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        MainContent.ITEMS.clear();
+        MainContent.addMainItem(MainContent.createMainItem(getString(R.string.title_device_info)));
+        MainContent.addMainItem(MainContent.createMainItem(getString(R.string.title_mobile_network)));
+        MainContent.addMainItem(MainContent.createMainItem(getString(R.string.title_sms)));
+        MainContent.addMainItem(MainContent.createMainItem(getString(R.string.title_gps)));
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_content_list, container, false);

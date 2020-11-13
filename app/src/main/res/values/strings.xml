@@ -52,5 +52,10 @@
     <string name="title_sms">SMS</string>
     <string name="title_gps" translatable="false">GPS</string>
     <string name="title_info">Infomation</string>
+    <string name="network_registered">Network Registered</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="title_device_info">Device Infomation</string>
+    <string name="title_mobile_network">Mobile Network</string>
 
 </resources>

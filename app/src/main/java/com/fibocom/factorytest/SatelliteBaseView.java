@@ -43,11 +43,7 @@ public class SatelliteBaseView extends View {
     }
 
 
-    private static final String TAG = "SatelliteBaseView";
-    public static final int STATE_UNFIXED = 1;
-    public static final int STATE_USED_IN_FIX = 2;
-    public static final int STATE_UNUSED_IN_FIX = 3;
-
+    //private static final String TAG = "SatelliteBaseView";
     private SatelliteInfoManager mSiManager = null;
 
 

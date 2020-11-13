@@ -19,4 +19,9 @@
     <string name="title_signal">移动信号</string>
     <string name="title_info">状态信息</string>
     <string name="title_sms">短信</string>
+    <string name="network_registered">网络注册</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="title_device_info">设备信息</string>
+    <string name="title_mobile_network">移动信号</string>
 </resources>
