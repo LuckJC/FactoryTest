@@ -40,10 +40,6 @@ public class GpsFragment extends Fragment {
     private TextView tvAcc;
     private TextView tvSpeed;
 
-    public GpsFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

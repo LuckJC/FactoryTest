@@ -16,13 +16,6 @@ public class ContentFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 1;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public ContentFragment() {
-    }
-
     public static ContentFragment newInstance(int columnCount) {
         ContentFragment fragment = new ContentFragment();
         Bundle args = new Bundle();

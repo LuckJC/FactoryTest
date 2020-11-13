@@ -3,7 +3,6 @@ package com.fibocom.factorytest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import java.lang.reflect.InvocationTargetException;
@@ -40,11 +38,6 @@ public class NetworkFragment extends Fragment {
     private List<MyPhoneStateListener> myPhoneStateListener;
     private Map<MyPhoneStateListener, TelephonyManager> myPhoneStateListenerTelephonyManagerMap;
 
-    public NetworkFragment() {
-        // Required empty public constructor
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +55,6 @@ public class NetworkFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_network, container, false);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -99,7 +91,6 @@ public class NetworkFragment extends Fragment {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
         super.onResume();
@@ -168,7 +159,6 @@ public class NetworkFragment extends Fragment {
             this.rssiTv = rssiTv;
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onSignalStrengthsChanged(SignalStrength signalStrength) {
             super.onSignalStrengthsChanged(signalStrength);

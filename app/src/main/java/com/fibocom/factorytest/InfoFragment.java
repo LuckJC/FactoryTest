@@ -3,7 +3,6 @@ package com.fibocom.factorytest;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
@@ -15,7 +14,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -33,22 +31,6 @@ public class InfoFragment extends Fragment {
     private TelephonyManager mTelephonyManager;
     private SubscriptionManager mSubscriptionManager;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public InfoFragment() {
-    }
-
-    public static InfoFragment newInstance(int columnCount) {
-        InfoFragment fragment = new InfoFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +62,6 @@ public class InfoFragment extends Fragment {
         return view;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -136,7 +117,6 @@ public class InfoFragment extends Fragment {
         return type;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void getIMEIOrEMID(int slotNumber, boolean isCDMAPhone) {
         if (isCDMAPhone) {
             getTitleForCdmaPhone(slotNumber);
