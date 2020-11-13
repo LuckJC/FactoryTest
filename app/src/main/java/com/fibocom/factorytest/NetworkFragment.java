@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,13 +59,13 @@ public class NetworkFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             myAdapter = new MyItemRecyclerViewAdapter(MainContent.ITEMS, 1);
             recyclerView.setAdapter(myAdapter);
-            DefaultItemAnimator defaultItemAnimator = new DefaultItemAnimator();
-            recyclerView.setItemAnimator(defaultItemAnimator);
+            //DefaultItemAnimator defaultItemAnimator = new DefaultItemAnimator();
+            //recyclerView.setItemAnimator(defaultItemAnimator);
         }
         return view;
     }
 
-    @SuppressLint("HardwareIds")
+    @SuppressLint({"HardwareIds", "MissingPermission"})
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -79,7 +78,11 @@ public class NetworkFragment extends Fragment {
                 //subInfo.getSubscriptionId();
 
                 MainContent.addMainItem(MainContent.createMainItem(
-                        telephonyManager.getNetworkOperatorName(),
+                        subInfo.getDisplayName().toString(),
+                        telephonyManager.getNetworkOperatorName()));
+
+                MainContent.addMainItem(MainContent.createMainItem(
+                        getString(R.string.signal_strength),
                         ""));
 
                 if (isSubscriptionInService(subInfo.getSubscriptionId())) {
@@ -94,6 +97,10 @@ public class NetworkFragment extends Fragment {
                             getString(R.string.network_registered),
                             getString(R.string.no)));
                 }
+
+                MainContent.addMainItem(MainContent.createMainItem(
+                        getString(R.string.network_type),
+                        getNetworkTypeName(telephonyManager.getNetworkType())));
 
                 MainContent.addMainItem(MainContent.createMainItem(
                         getString(R.string.status_imsi_id),
@@ -127,6 +134,53 @@ public class NetworkFragment extends Fragment {
             if (telephonyManager != null) {
                 telephonyManager.listen(listener, PhoneStateListener.LISTEN_NONE);
             }
+        }
+    }
+
+    public static String getNetworkTypeName(int type) {
+        switch (type) {
+            case TelephonyManager.NETWORK_TYPE_GPRS:
+                return "GPRS";
+            case TelephonyManager.NETWORK_TYPE_EDGE:
+                return "EDGE";
+            case TelephonyManager.NETWORK_TYPE_UMTS:
+                return "UMTS";
+            case TelephonyManager.NETWORK_TYPE_HSDPA:
+                return "HSDPA";
+            case TelephonyManager.NETWORK_TYPE_HSUPA:
+                return "HSUPA";
+            case TelephonyManager.NETWORK_TYPE_HSPA:
+                return "HSPA";
+            case TelephonyManager.NETWORK_TYPE_CDMA:
+                return "CDMA";
+            case TelephonyManager.NETWORK_TYPE_EVDO_0:
+                return "CDMA - EvDo rev. 0";
+            case TelephonyManager.NETWORK_TYPE_EVDO_A:
+                return "CDMA - EvDo rev. A";
+            case TelephonyManager.NETWORK_TYPE_EVDO_B:
+                return "CDMA - EvDo rev. B";
+            case TelephonyManager.NETWORK_TYPE_1xRTT:
+                return "CDMA - 1xRTT";
+            case TelephonyManager.NETWORK_TYPE_LTE:
+                return "LTE";
+            case TelephonyManager.NETWORK_TYPE_EHRPD:
+                return "CDMA - eHRPD";
+            case TelephonyManager.NETWORK_TYPE_IDEN:
+                return "iDEN";
+            case TelephonyManager.NETWORK_TYPE_HSPAP:
+                return "HSPA+";
+            case TelephonyManager.NETWORK_TYPE_GSM:
+                return "GSM";
+            case TelephonyManager.NETWORK_TYPE_TD_SCDMA:
+                return "TD_SCDMA";
+            case TelephonyManager.NETWORK_TYPE_IWLAN:
+                return "IWLAN";
+            case /*TelephonyManager.NETWORK_TYPE_LTE_CA*/ 19:
+                return "LTE_CA";
+            case TelephonyManager.NETWORK_TYPE_NR:
+                return "NR";
+            default:
+                return "UNKNOWN";
         }
     }
 

@@ -57,5 +57,7 @@
     <string name="no">no</string>
     <string name="title_device_info">Device Infomation</string>
     <string name="title_mobile_network">Mobile Network</string>
+    <string name="signal_strength">Signal Strength</string>
+    <string name="network_type">Network Type</string>
 
 </resources>

@@ -24,4 +24,6 @@
     <string name="no">否</string>
     <string name="title_device_info">设备信息</string>
     <string name="title_mobile_network">移动信号</string>
+    <string name="signal_strength">信号强度</string>
+    <string name="network_type">网络类型</string>
 </resources>
