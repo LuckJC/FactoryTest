@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FactoryTest</string>
+    <string name="app_name">Fibocom Hardware Test</string>
     <!-- About phone, status item title.  The phone MSID number of the current device.-->
     <string name="status_msid_number" translatable="false">MSID</string>
     <!-- About phone screen, title for MEID for multi-sim devices -->

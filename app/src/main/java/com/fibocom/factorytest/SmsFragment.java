@@ -98,7 +98,6 @@ public class SmsFragment extends Fragment {
                 int typeColumn = cur.getColumnIndex("type");
                 do {
                     phoneNumber = cur.getString(phoneNumberColumn);
-                    Log.d("MyLog", "phoneNumber = " + phoneNumber);
                     smsBoby = cur.getString(smsbodyColumn);
                     SimpleDateFormat dateFormat = new SimpleDateFormat(
                             "yyyy-MM-dd HH:mm:ss");
