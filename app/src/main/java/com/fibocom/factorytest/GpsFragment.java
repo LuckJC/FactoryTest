@@ -3,6 +3,7 @@ package com.fibocom.factorytest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.location.GnssStatus;
 import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
@@ -79,7 +80,7 @@ public class GpsFragment extends Fragment {
         tvLon = view.findViewById(R.id.tv_longitude);
         tvAlt = view.findViewById(R.id.tv_altitude);
         tvAcc = view.findViewById(R.id.tv_accuracy);
-        tvSpeed = (TextView) view.findViewById(R.id.tv_speed);
+        tvSpeed = view.findViewById(R.id.tv_speed);
 
     }
 
@@ -99,14 +100,14 @@ public class GpsFragment extends Fragment {
         }
         tvProvider.setText(mProvider);
         tvStatus.setText(mStatus);
-        mLocationManager.addGpsStatusListener(myGpsStatusListener);
+        mLocationManager.registerGnssStatusCallback(myGnssStatusListener);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, myLocationListener);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mLocationManager.removeGpsStatusListener(myGpsStatusListener);
+        mLocationManager.unregisterGnssStatusCallback(myGnssStatusListener);
         mLocationManager.removeUpdates(myLocationListener);
     }
 
@@ -115,32 +116,38 @@ public class GpsFragment extends Fragment {
         super.onDestroyView();
     }
 
-    private GpsStatus.Listener myGpsStatusListener = new GpsStatus.Listener() {
+    private GnssStatus.Callback myGnssStatusListener = new GnssStatus.Callback() {
         @Override
-        public void onGpsStatusChanged(int event) {
-            switch (event) {
-                case GpsStatus.GPS_EVENT_STARTED:
-                    mStatus = getString(R.string.gps_status_started);
-                    break;
-                case GpsStatus.GPS_EVENT_STOPPED:
-                    mStatus = getString(R.string.gps_status_stopped);
-                    break;
-                case GpsStatus.GPS_EVENT_FIRST_FIX:
-                    mStatus = getString(R.string.gps_status_first_fix);
-                    break;
-                case GpsStatus.GPS_EVENT_SATELLITE_STATUS:
-                    @SuppressLint("MissingPermission") GpsStatus gpsStatus = mLocationManager.getGpsStatus(null);
-                    mSatelInfoManager.updateSatelliteInfo(gpsStatus);
-                    mSignalView.requestUpdate(mSatelInfoManager);
-                    boolean isFixed = mSatelInfoManager.isUsedInFix(SatelliteInfoManager.PRN_ANY);
-                    if (!isFixed) {
-                        mStatus = getString(R.string.gps_status_unavailable);
-                    } else {
-                        mStatus = getString(R.string.gps_status_available);
-                    }
-                    break;
-                default:
-                    break;
+        public void onStarted() {
+            super.onStarted();
+            mStatus = getString(R.string.gps_status_started);
+            tvStatus.setText(mStatus);
+        }
+
+        @Override
+        public void onStopped() {
+            super.onStopped();
+            mStatus = getString(R.string.gps_status_stopped);
+            tvStatus.setText(mStatus);
+        }
+
+        @Override
+        public void onFirstFix(int ttffMillis) {
+            super.onFirstFix(ttffMillis);
+            mStatus = getString(R.string.gps_status_first_fix);
+            tvStatus.setText(mStatus);
+        }
+
+        @Override
+        public void onSatelliteStatusChanged(@NonNull GnssStatus status) {
+            super.onSatelliteStatusChanged(status);
+            mSatelInfoManager.updateSatelliteInfo(status);
+            mSignalView.requestUpdate(mSatelInfoManager);
+            boolean isFixed = mSatelInfoManager.isUsedInFix(SatelliteInfoManager.PRN_ANY);
+            if (!isFixed) {
+                mStatus = getString(R.string.gps_status_unavailable);
+            } else {
+                mStatus = getString(R.string.gps_status_available);
             }
             tvStatus.setText(mStatus);
         }

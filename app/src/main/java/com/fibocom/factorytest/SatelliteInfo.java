@@ -38,13 +38,18 @@ package com.fibocom.factorytest;
 /**
  * A class for satellite information.
  */
-public class SatelliteInfo {
+public class SatelliteInfo implements Comparable<SatelliteInfo> {
     int mPrn;
     float mSnr;
     float mElevation;
     float mAzimuth;
     boolean mUsedInFix;
     int mColor;
+
+    @Override
+    public int compareTo(SatelliteInfo satelliteInfo) {
+        return  this.mPrn - satelliteInfo.mPrn;
+    }
 
     @Override
     public String toString() {

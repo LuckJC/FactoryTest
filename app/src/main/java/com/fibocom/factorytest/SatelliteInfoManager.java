@@ -1,9 +1,10 @@
 package com.fibocom.factorytest;
 
-import android.location.GpsSatellite;
-import android.location.GpsStatus;
+import android.location.GnssStatus;
+import android.location.GnssStatus;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,8 +22,10 @@ public class SatelliteInfoManager {
             0xffffff00, //yellow
             0xffffffff, //white
             0xff0000ff, //blue
+            0xffff0000, //red
             0xff00ff00, //green
-            0xffff0000 //red
+            0xFFBB86FC, //purple
+            0xff909090 //gray
     };
 
     List<SatelliteInfo> mSatelInfoList;
@@ -34,40 +37,55 @@ public class SatelliteInfoManager {
         mSatelInfoList = new ArrayList<>();
     }
 
-    void updateSatelliteInfo(GpsStatus gpsStatus) {
+    void updateSatelliteInfo(GnssStatus gnssStatus) {
         if (mSatelInfoList != null) {
             mSatelInfoList.clear();
         } else {
             mSatelInfoList = new ArrayList<>();
         }
 
-        int maxSatellites = gpsStatus.getMaxSatellites();
-        Iterator<GpsSatellite> iters = gpsStatus.getSatellites().iterator();
-        int count = 0;
-        while (iters.hasNext() && count <= maxSatellites) {
-            count++;
-            GpsSatellite s = iters.next();
+        int maxSatellites = gnssStatus.getSatelliteCount();
+        for(int i = 0; i < maxSatellites; i++) {
             SatelliteInfo satInfo = new SatelliteInfo();
-            satInfo.mPrn = s.getPrn();
-            satInfo.mSnr = s.getSnr();
-            satInfo.mElevation = s.getElevation();
-            satInfo.mAzimuth = s.getAzimuth();
-            satInfo.mUsedInFix = s.usedInFix();
-            if (satInfo.mPrn >= 1 && satInfo.mPrn <= 32) { // GPS
-                satInfo.mColor = SATEL_COLOR[0];
-            } else if (satInfo.mPrn >= 65 && satInfo.mPrn <= 96) { // GLONASS
-                satInfo.mColor = SATEL_COLOR[1];
-            } else if (satInfo.mPrn >= 201 && satInfo.mPrn <= 237) { // BDS
-                satInfo.mColor = SATEL_COLOR[2];
-            } else if (satInfo.mPrn >= 401 && satInfo.mPrn <= 436) { // GALIEO
-                satInfo.mColor = SATEL_COLOR[3];
-            } else if (satInfo.mPrn >= 193 && satInfo.mPrn <= 197) { // QZSS
-                satInfo.mColor = SATEL_COLOR[4];
-            } else if (satInfo.mPrn >= 33 && satInfo.mPrn <= 64) { // SBAS
-                satInfo.mColor = SATEL_COLOR[5];
+            satInfo.mPrn = gnssStatus.getSvid(i);
+            satInfo.mSnr = gnssStatus.getCn0DbHz(i);
+            satInfo.mElevation = gnssStatus.getElevationDegrees(i);
+            satInfo.mAzimuth = gnssStatus.getAzimuthDegrees(i);
+            satInfo.mUsedInFix = gnssStatus.usedInFix(i);
+            switch (gnssStatus.getConstellationType(i)) {
+                case GnssStatus.CONSTELLATION_GPS:
+                    satInfo.mColor = SATEL_COLOR[0];
+                    break;
+                case GnssStatus.CONSTELLATION_SBAS:
+                    satInfo.mColor = SATEL_COLOR[1];
+                    satInfo.mPrn -= 87;
+                    break;
+                case GnssStatus.CONSTELLATION_GLONASS:
+                    satInfo.mColor = SATEL_COLOR[2];
+                    satInfo.mPrn += 64;
+                    break;
+                case GnssStatus.CONSTELLATION_QZSS:
+                    satInfo.mColor = SATEL_COLOR[3];
+                    break;
+                case GnssStatus.CONSTELLATION_BEIDOU:
+                    satInfo.mColor = SATEL_COLOR[4];
+                    satInfo.mPrn += 200;
+                    break;
+                case GnssStatus.CONSTELLATION_GALILEO:
+                    satInfo.mColor = SATEL_COLOR[5];
+                    satInfo.mPrn += 300;
+                    break;
+                case GnssStatus.CONSTELLATION_IRNSS:
+                    satInfo.mColor = SATEL_COLOR[6];
+                    satInfo.mPrn += 900;
+                    break;
+                default:
+                    satInfo.mColor = SATEL_COLOR[7];
+                    break;
             }
             mSatelInfoList.add(satInfo);
         }
+        Collections.sort(mSatelInfoList);
     }
 
     public List<SatelliteInfo> getSatelInfoList() {

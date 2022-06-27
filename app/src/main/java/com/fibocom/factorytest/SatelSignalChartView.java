@@ -75,7 +75,7 @@ public class SatelSignalChartView extends SatelliteBaseView {
 
         mLinePaint = new Paint();
         mLinePaint.setAntiAlias(true);
-        mLinePaint.setColor(getResources().getColor(R.color.sigview_line_color));
+        mLinePaint.setColor(getResources().getColor(R.color.sigview_line_color, null));
         mLinePaint.setStyle(Style.STROKE);
         mLinePaint.setStrokeWidth(1.0f);
 
@@ -83,17 +83,17 @@ public class SatelSignalChartView extends SatelliteBaseView {
         mLine2Paint.setStrokeWidth(0.5f);
 
         mRectLinePaint = new Paint(mRectPaint);
-        mRectLinePaint.setColor(getResources().getColor(R.color.bar_outline));
+        mRectLinePaint.setColor(getResources().getColor(R.color.bar_outline, null));
         mRectLinePaint.setStyle(Style.STROKE);
 
         mTextPaint = new Paint();
         mTextPaint.setTextAlign(Align.CENTER);
         mTextPaint.setTextSize(TEXT_SIZE);
         mTextPaint.setAntiAlias(true);
-        mTextPaint.setColor(getResources().getColor(R.color.sigview_text_color));
+        mTextPaint.setColor(getResources().getColor(R.color.sigview_text_color, null));
 
         mBgPaint = new Paint();
-        mBgPaint.setColor(getResources().getColor(R.color.sigview_background));
+        mBgPaint.setColor(getResources().getColor(R.color.sigview_background, null));
     }
 
     @Override
