@@ -1,14 +1,13 @@
 package com.fibocom.factorytest;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +18,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,56 +33,20 @@ public class MainActivity extends AppCompatActivity {
     private static final int PERMISSON_REQUESTCODE = 0;
     private boolean isNeedCheck = true;
 
-    boolean checkDevice(String pathname, String token) {
-        File file = new File(pathname);
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (line.contains("Version:") && line.contains(token)) {
-                    return true;
-                }
-            }
-            br.close();
-        } catch (Exception e) {
-            return false;
-        }
-        return false;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String rawStr = AESUtils.readShaderFromRawResource(this, R.raw.token);
-        if (rawStr == null) {
-            ((TextView) null).setText("");
-        }
-        String[] lines = rawStr.split("\n");
-        if (lines.length != 2) finish();
-        if (!checkDevice(lines[0].trim(), lines[1])) {
-            ((TextView) null).setText("");
-        }
         setContentView(R.layout.activity_main);
 
-        if (!checkDevice(lines[0].trim(), lines[1]) || Build.VERSION.SDK_INT != Build.VERSION_CODES.Q) {
-            ((TextView) null).setText("");
-        }
-
         Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.fragment);
-        NavController navController;
-        if (navHostFragment != null) {
-            navController = NavHostFragment.findNavController(navHostFragment);
-            NavigationUI.setupActionBarWithNavController(this, navController);
-        }
+        NavController navController = NavHostFragment.findNavController(navHostFragment);
+        NavigationUI.setupActionBarWithNavController(this, navController);
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment);
-        if (fragment != null) {
-            return NavHostFragment.findNavController(fragment).navigateUp();
-        }
-        return false;
+        return NavHostFragment.findNavController(fragment).navigateUp();
     }
 
     @Override
@@ -100,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkPermissions(String... permissions) {
         List<String> needRequestPermissonList = findDeniedPermissions(permissions);
-        if (needRequestPermissonList.size() > 0) {
+        if (null != needRequestPermissonList
+                && needRequestPermissonList.size() > 0) {
             ActivityCompat.requestPermissions(this,
                     needRequestPermissonList.toArray(
                             new String[needRequestPermissonList.size()]),
@@ -150,7 +111,12 @@ public class MainActivity extends AppCompatActivity {
                 (dialog, which) -> finish());
         //同意授权
         builder.setPositiveButton(R.string.setting,
-                (dialog, which) -> startAppSettings());
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startAppSettings();
+                    }
+                });
         builder.setCancelable(false);
         builder.show();
     }

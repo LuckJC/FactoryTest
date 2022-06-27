@@ -1,18 +1,6 @@
-import javax.crypto.BadPaddingException
-import javax.crypto.Cipher
-import javax.crypto.IllegalBlockSizeException
-import javax.crypto.NoSuchPaddingException
-import javax.crypto.spec.SecretKeySpec
-import java.security.InvalidKeyException
-import java.security.NoSuchAlgorithmException
-
 plugins {
     id 'com.android.application'
 }
-
-def rawDir = './app/src/main/res/raw/'
-def tempDir = './tempDir'
-def aesKey = "1uZJSBH45PwRg3HR"
 
 android {
     compileSdkVersion 30
@@ -25,7 +13,6 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField "String", "AES_KEY", "\"${aesKey}\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -44,37 +31,6 @@ android {
             keyPassword '123456'
         }
     }
-
-    gradle.addBuildListener(new BuildListener() {
-        @Override
-        void buildStarted(Gradle gradle) {
-            println "buildStarted"
-        }
-
-        @Override
-        void settingsEvaluated(Settings settings) {
-            println "settingsEvaluated"
-        }
-
-        @Override
-        void projectsLoaded(Gradle gradle) {
-            println "projectsLoaded"
-        }
-
-        @Override
-        void projectsEvaluated(Gradle gradle) {
-            println "projectsEvaluated"
-            copyFolder(rawDir, tempDir)
-            encodeDir(rawDir, aesKey)
-        }
-
-        @Override
-        void buildFinished(BuildResult buildResult) {
-            copyFolder(tempDir, rawDir)
-            deleteAllFilesOfDir(tempDir)
-            println "buildFinished"
-        }
-    })
 
     buildTypes {
         release {
@@ -104,145 +60,4 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-}
-
-void copyFolder(String oldPath, String newPath) {
-    try {
-        (new File(newPath)).mkdirs()
-        File a = new File(oldPath)
-        String[] file = a.list()
-        File temp
-        for (int i = 0; i < file.length; i++) {
-            if (oldPath.endsWith(File.separator)) {
-                temp = new File(oldPath + file[i])
-            } else {
-                temp = new File(oldPath + File.separator + file[i])
-            }
-            if (temp.isFile()) {
-                FileInputStream input = new FileInputStream(temp)
-                FileOutputStream output = new FileOutputStream(newPath + "/" +
-                        (temp.getName()).toString())
-                byte[] b = new byte[1024 * 5]
-                int len
-                while ((len = input.read(b)) != -1) {
-                    output.write(b, 0, len)
-                }
-                output.flush()
-                output.close()
-                input.close()
-            }
-            if (temp.isDirectory()) {
-                copyFolder(oldPath + "/" + file[i], newPath + "/" + file[i])
-            }
-        }
-    }
-    catch (Exception e) {
-        println("Copy file failed")
-        e.printStackTrace()
-    }
-}
-
-void deleteAllFilesOfDir(String path) {
-    File file = new File(path)
-    if (!file.exists())
-        return
-    if (file.isFile()) {
-        file.delete()
-        return
-    }
-    File[] files = file.listFiles()
-    for (int i = 0; i < files.length; i++) {
-        deleteAllFilesOfDir(files[i].getAbsolutePath())
-    }
-    file.delete()
-}
-
-static String file2String(File file, String encoding) {
-    InputStreamReader reader = null
-    StringWriter writer = new StringWriter()
-    try {
-        if (encoding == null || "".equals(encoding.trim())) {
-            reader = new InputStreamReader(new FileInputStream(file), encoding)
-        } else {
-            reader = new InputStreamReader(new FileInputStream(file))
-        }
-        char[] buffer = new char[1024]
-        int n
-        while (-1 != (n = reader.read(buffer))) {
-            writer.write(buffer, 0, n)
-        }
-    } catch (Exception e) {
-        e.printStackTrace()
-        return null
-    } finally {
-        if (reader != null)
-            try {
-                reader.close()
-            } catch (IOException e) {
-                e.printStackTrace()
-            }
-    }
-    if (writer != null)
-        return writer.toString()
-    else return null
-}
-
-private static byte[] encrypt(String content, String password) {
-    try {
-        byte[] keyStr = getKey(password)
-        SecretKeySpec key = new SecretKeySpec(keyStr, "AES")
-        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
-        byte[] byteContent = content.getBytes("utf-8")
-        cipher.init(Cipher.ENCRYPT_MODE, key)
-        byte[] result = cipher.doFinal(byteContent)
-        return result
-    } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException |
-            IllegalBlockSizeException | BadPaddingException e) {
-        e.printStackTrace()
-    }
-    return null
-}
-
-private static byte[] getKey(String password) {
-    byte[] rByte
-    if (password != null) {
-        rByte = password.getBytes()
-    } else {
-        rByte = new byte[24]
-    }
-    return rByte
-}
-
-static String parseByte2HexStr(byte[] buf) {
-    StringBuffer sb = new StringBuffer()
-    if(buf == null) return null
-    for (int i = 0; i < buf.length; i++) {
-        String hex = Integer.toHexString(buf[i] & 0xFF)
-        if (hex.length() == 1) {
-            hex = '0' + hex
-        }
-        sb.append(hex.toUpperCase())
-    }
-    return sb.toString()
-}
-
-static String encodeContent(String content, String keyBytes) {
-    return parseByte2HexStr(encrypt(content, keyBytes))
-}
-
-void encodeDir(String rawDir, String aesKey) {
-    println "Do encode Dir"
-    File searchPlug = new File(rawDir)
-    if (searchPlug.exists() && searchPlug.isDirectory()) {
-        println "Dir exists"
-        File[] files = searchPlug.listFiles()
-        for (File file : files) {
-            String str = file2String(file, "utf-8")
-            def content = encodeContent(str, aesKey)
-            def stream = file.newOutputStream()
-            if(content == null) return
-            stream.write(content.bytes)
-            stream.flush()
-        }
-    }
 }
